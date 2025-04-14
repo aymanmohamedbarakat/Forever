@@ -1,0 +1,530 @@
+// import { create } from "zustand";
+// import { products } from "../assets/frontend_assets/assets";
+// import { toast } from "react-toastify";
+// import { useNavigate } from "react-router-dom";
+// export const currency = "$";
+// export const delivery_fee = 10;
+// // Update navigateToOrders to check if user is authenticated
+// export const navigateToOrders = (navigate) => {
+//   const { isAuthenticated } = useAuthStore.getState();
+
+//   if (isAuthenticated) {
+//     navigate("/orders");
+//   } else {
+//     navigate("/login");
+//     toast.info("Please login to view your orders", {
+//       position: "top-right",
+//       autoClose: 1200,
+//     });
+//   }
+// };
+// // Modify useLinks to include admin dashboard for admin users
+// export const useLinks = create(() => {
+//   const Links = [
+//     { name: "HOME", url: "/" },
+//     { name: "COLLECTION", url: "/collection" },
+//     { name: "ABOUT", url: "/about" },
+//     { name: "CONTACT", url: "/contact" },
+//   ];
+
+//   return {
+//     getLinks: () => {
+//       const { isAuthenticated, isAdmin } = useAuthStore.getState();
+
+//       if (isAuthenticated && isAdmin()) {
+//         return [...Links, { name: "ADMIN", url: "/admin" }];
+//       }
+
+//       return Links;
+//     },
+//     Links,
+//   };
+// });
+// export const useSideHeader = create((set) => ({
+//   index: false,
+//   openSideHeader: () => set(() => ({ index: true })),
+//   closeSideHeader: () => set(() => ({ index: false })),
+// }));
+// export const useSearchStore = create((set) => ({
+//   search: "",
+//   showSearch: false,
+
+//   setSearch: (value) => set({ search: value }),
+//   openSearch: () => set({ showSearch: true }),
+//   closeSearch: () => set({ showSearch: false , search: ""  }),
+// }));
+// export const useProducts = create((set) => ({
+//   products: products,
+//   setProducts: (newProducts) => set({ products: newProducts }),
+// }));
+// const initialUsers = [
+//   {
+//     id: "user1",
+//     name: "Regular User",
+//     email: "user@example.com",
+//     phone: "123456789",
+//     password: "password123",
+//     role: "user",
+//     orders: [],
+//     wishlist: [],
+//   },
+//   {
+//     id: "admin1",
+//     name: "User Admin",
+//     email: "admin@example.com",
+//     phone: "987654321",
+//     password: "admin123",
+//     role: "admin",
+//     orders: [],
+//     wishlist: [],
+//   },
+// ];
+// // User authentication store
+// export const useAuthStore = create((set, get) => ({
+//   users: JSON.parse(localStorage.getItem("users")) || initialUsers,
+//   currentUser: JSON.parse(localStorage.getItem("currentUser")) || null,
+//   isAuthenticated: !!JSON.parse(localStorage.getItem("currentUser")),
+//   isAdmin: () => {
+//     const user = get().currentUser;
+//     return user && user.role === "admin";
+//   },
+
+//   // Login function
+//   login: (phone, password) => {
+//     const user = get().users.find(
+//       (u) => u.phone === phone && u.password === password
+//     );
+
+//     if (user) {
+//       set({ currentUser: user, isAuthenticated: true });
+//       localStorage.setItem("currentUser", JSON.stringify(user));
+//       toast.success(`Welcome back, ${user.name}!`, {
+//         position: "top-right",
+//         autoClose: 1200,
+//       });
+//       return true;
+//     } else {
+//       toast.error("Invalid phone number or password", {
+//         position: "top-right",
+//         autoClose: 1200,
+//       });
+//       return false;
+//     }
+//   },
+
+//   // Register function
+//   register: (name, phone, password) => {
+//     const users = get().users;
+
+//     // Check if user already exists
+//     if (users.some((u) => u.phone === phone)) {
+//       toast.error("Phone number already registered", {
+//         position: "top-right",
+//         autoClose: 2000,
+//       });
+//       return false;
+//     }
+
+//     // Create new user
+//     const newUser = {
+//       id: `user${Date.now()}`,
+//       name,
+//       phone,
+//       password,
+//       role: "user", // Default role
+//       orders: [],
+//       wishlist: [],
+//     };
+
+//     const updatedUsers = [...users, newUser];
+//     set({ users: updatedUsers });
+//     localStorage.setItem("users", JSON.stringify(updatedUsers));
+
+//     // Auto login after registration
+//     set({ currentUser: newUser, isAuthenticated: true });
+//     localStorage.setItem("currentUser", JSON.stringify(newUser));
+
+//     toast.success("Registration successful!", {
+//       position: "top-right",
+//       autoClose: 1200,
+//     });
+//     return true;
+//   },
+
+//   // Logout function
+//   logout: () => {
+//     set({ currentUser: null, isAuthenticated: false });
+//     localStorage.removeItem("currentUser");
+//     toast.info("You have been logged out", {
+//       position: "top-right",
+//       autoClose: 1200,
+//     });
+//   },
+
+//   // Update user profile
+//   updateProfile: (updatedData) => {
+//     const { users, currentUser } = get();
+//     if (!currentUser) return false;
+
+//     const updatedUsers = users.map((user) =>
+//       user.id === currentUser.id ? { ...user, ...updatedData } : user
+//     );
+
+//     const updatedUser = { ...currentUser, ...updatedData };
+
+//     set({ users: updatedUsers, currentUser: updatedUser });
+//     localStorage.setItem("users", JSON.stringify(updatedUsers));
+//     localStorage.setItem("currentUser", JSON.stringify(updatedUser));
+
+//     // Updated toast message to English
+//     toast.success("Profile updated successfully!", {
+//       position: "top-right",
+//       autoClose: 1200,
+//     });
+
+//     return true;
+//   },
+// }));
+// export const useCartStore = create((set, get) => ({
+//   cartItems: JSON.parse(localStorage.getItem("cartItems")) || [],
+
+//   addToCart: (itemId, size) => {
+//     if (!size) {
+//       toast.error("Please select a size", {
+//         position: "top-right",
+//         autoClose: 1200,
+//       });
+//       return;
+//     }
+
+//     const cart = [...get().cartItems];
+//     const existingItemIndex = cart.findIndex(
+//       (item) => item._id === itemId && item.size === size
+//     );
+
+//     if (existingItemIndex !== -1) {
+//       cart[existingItemIndex].quantity += 1;
+//       toast.info("Item quantity increased", {
+//         position: "top-right",
+//         autoClose: 1200,
+//       });
+//     } else {
+//       // العنصر غير موجود - نضيفه جديد
+//       cart.push({ _id: itemId, size, quantity: 1 });
+//       toast.success("Item added to cart", {
+//         position: "top-right",
+//         autoClose: 1200,
+//       });
+//     }
+
+//     set({ cartItems: cart });
+//     localStorage.setItem("cartItems", JSON.stringify(cart));
+//   },
+
+//   removeFromCart: (itemId, size) => {
+//     const cart = get().cartItems.filter(
+//       (item) => !(item._id === itemId && item.size === size)
+//     );
+//     set({ cartItems: cart });
+//     localStorage.setItem("cartItems", JSON.stringify(cart));
+//     toast.success("Item removed from cart", {
+//       position: "top-right",
+//       autoClose: 1200,
+//     });
+//   },
+
+//   updateQuantity: (itemId, size, quantity) => {
+//     const cart = [...get().cartItems];
+//     const itemIndex = cart.findIndex(
+//       (item) => item._id === itemId && item.size === size
+//     );
+
+//     if (itemIndex !== -1) {
+//       cart[itemIndex].quantity = quantity;
+//       set({ cartItems: cart });
+//       localStorage.setItem("cartItems", JSON.stringify(cart));
+//     }
+//   },
+
+//   getCartCount: () => {
+//     return get().cartItems.reduce((total, item) => total + item.quantity, 0);
+//   },
+
+//   getCartAmount: (products) => {
+//     const cart = get().cartItems;
+//     let total = 0;
+
+//     cart.forEach(({ _id, quantity }) => {
+//       const product = products.find((productItem) => productItem._id === _id);
+//       if (product) {
+//         total += product.price * quantity;
+//       }
+//     });
+//     return total;
+//   },
+
+//   clearCart: () => {
+//     set({ cartItems: [] });
+//     localStorage.removeItem("cartItems");
+//     toast.info("Cart cleared", {
+//       position: "top-right",
+//       autoClose: 1200,
+//     });
+//   },
+// }));
+// export const useCheckOutStore = create((set, get) => ({
+//   formData: {
+//     firstName: "",
+//     lastName: "",
+//     email: "",
+//     street: "",
+//     city: "",
+//     state: "",
+//     zipCode: "",
+//     country: "",
+//     phone: "",
+//   },
+//   method: "cod",
+
+//   setFormData: (data) => set({ formData: data }),
+//   setMethod: (method) => set({ method }),
+
+//   // Generate Id
+//   generateOrderId: () => {
+//     const timeOrder = new Date().toISOString();
+//     const orderId = Math.floor(Math.random() * 1000)
+//       .toString()
+//       .padStart(3, "0");
+//     return `ORD-${timeOrder}${orderId}`;
+//   },
+
+//   getCartItemsList: () => {
+//     const cartItems = useCartStore.getState().cartItems;
+//     const items = [];
+
+//     const { products } = useProducts.getState();
+
+//     cartItems.forEach(({ _id, size, quantity }) => {
+//       const product = products.find((productItem) => productItem._id === _id);
+//       if (product && quantity > 0) {
+//         items.push({
+//           productId: _id,
+//           name: product.name,
+//           price: product.price,
+//           image: product.image[0],
+//           size,
+//           quantity,
+//         });
+//       }
+//     });
+//     return items;
+//   },
+
+//   handlePlaceOrder: async () => {
+//     const { formData, method } = get();
+//     const { currentUser } = useAuthStore.getState();
+
+//     // Check if cart is empty
+//     const cartItemsArray = get().getCartItemsArray();
+//     if (cartItemsArray.length === 0) {
+//       toast.error("Your cart is empty", {
+//         position: "top-right",
+//         autoClose: 1200,
+//       });
+//       return;
+//     }
+
+//     // Create order
+//     const orderCustomer = {
+//       id: get().generateOrderId(),
+//       date: new Date().toISOString(),
+//       customer: {
+//         firstName: formData.firstName,
+//         lastName: formData.lastName,
+//         email: formData.email,
+//         phone: formData.phone,
+//         address: {
+//           street: formData.street,
+//           city: formData.city,
+//           state: formData.state,
+//           zipCode: formData.zipCode,
+//           country: formData.country,
+//         },
+//       },
+//       items: cartItemsArray,
+//       total: get().getCartAmount(products),
+//       PaymentMethod: method,
+//       status: "processing",
+//     };
+
+//     // If user is logged in, associate order with user
+//     let userId = null;
+
+//     if (currentUser) {
+//       userId = currentUser.id;
+
+//       // Pre-fill form data with user info if not already provided
+//       if (!orderCustomer.firstName) {
+//         orderCustomer.firstName = currentUser.name.split(" ")[0] || "";
+//         orderCustomer.lastName = currentUser.name.split(" ")[1] || "";
+//       }
+//       if (!orderCustomer.email) orderCustomer.email = currentUser.email;
+//       if (!orderCustomer.phone) orderCustomer.phone = currentUser.phone;
+//     }
+
+//     const order = {
+//       id: get().generateOrderId(),
+//       date: new Date().toISOString(),
+//       customer: orderCustomer,
+//       userId: currentUser?.id || null, // هذا السطر مهم
+//       items: cartItemsArray,
+//       total: get().getCartAmount(products),
+//       PaymentMethod: method,
+//       status: "processing",
+//     };
+
+//     try {
+//       const existingOrders = JSON.parse(localStorage.getItem("orders") || "[]");
+//       const updatedOrders = [order, ...existingOrders];
+//       localStorage.setItem("orders", JSON.stringify(updatedOrders));
+
+//       // If user is logged in, add order to their orders list
+//       if (currentUser) {
+//         const users = JSON.parse(localStorage.getItem("users") || "[]");
+//         const updatedUsers = users.map((user) => {
+//           if (user.id === currentUser.id) {
+//             return {
+//               ...user,
+//               orders: [order.id, ...(user.orders || [])],
+//             };
+//           }
+//           return user;
+//         });
+//         localStorage.setItem("users", JSON.stringify(updatedUsers));
+
+//         // Update current user in auth store
+//         const updatedUser = {
+//           ...currentUser,
+//           orders: [order.id, ...(currentUser.orders || [])],
+//         };
+//         localStorage.setItem("currentUser", JSON.stringify(updatedUser));
+//         useAuthStore.setState({ currentUser: updatedUser });
+//       }
+
+//       // Clear cart
+//       useCartStore.getState().clearCart();
+
+//       toast.success("Order placed successfully!", {
+//         position: "top-right",
+//         autoClose: 1200,
+//       });
+//       return true;
+//     } catch (error) {
+//       console.error("Error saving order:", error);
+//       toast.error("There was an error placing your order. Please try again.", {
+//         position: "top-right",
+//         autoClose: 1200,
+//       });
+//       return false;
+//     }
+//   },
+
+//   getCartItemsArray: () => {
+//     return get().getCartItemsList();
+//   },
+
+//   getCartAmount: () => {
+//     const cartItems = get().getCartItemsArray();
+//     return cartItems.reduce(
+//       (total, item) => total + item.price * item.quantity,
+//       0
+//     );
+//   },
+// }));
+// export const useOrderStore = create((set, get) => ({
+//   orders: JSON.parse(localStorage.getItem("orders") || "[]"),
+//   loading: false,
+
+//   getOrders: () => {
+//     try {
+//       set({ loading: true });
+//       const savedOrders = localStorage.getItem("orders");
+//       const { currentUser } = useAuthStore.getState();
+
+//       if (savedOrders) {
+//         const parsedOrders = JSON.parse(savedOrders);
+
+//         // Only admins see all orders
+//         // Regular users see their own orders
+//         // Guest users see orders with matching sessionId or no associated user
+//         let filteredOrders;
+
+//         if (currentUser && currentUser.role === "admin") {
+//           // Admins see all orders
+//           filteredOrders = parsedOrders;
+//         } else if (currentUser) {
+//           // Logged in users see their orders only
+//           filteredOrders = parsedOrders.filter(
+//             (order) => order.userId === currentUser.id
+//           );
+//         } else {
+//           // Guest users see guest orders
+//           filteredOrders = parsedOrders.filter(
+//             (order) => !order.userId // Show orders with no userId
+//           );
+//         }
+
+//         // Process the filtered orders...
+//         const updatedOrders = filteredOrders.map((order) => {
+//           if (!order.id) {
+//             return { ...order, id: get().generateOrderId() };
+//           }
+//           return order;
+//         });
+
+//         set({ orders: updatedOrders });
+//       } else {
+//         set({ orders: [] });
+//       }
+//     } catch (error) {
+//       console.error("Error loading orders:", error);
+//       toast.error("There was an error loading your orders.", {
+//         position: "top-right",
+//         autoClose: 1200,
+//       });
+//       set({ orders: [] });
+//     } finally {
+//       set({ loading: false });
+//     }
+//   },
+
+//   // Rest of your order store methods...
+//   getStatusInfo: (status) => {
+//     switch (status) {
+//       case "processing":
+//         return { text: "Processing", color: "bg-yellow-500" };
+//       case "shipped":
+//         return { text: "Shipped", color: "bg-blue-500" };
+//       case "delivered":
+//         return { text: "Delivered", color: "bg-green-500" };
+//       case "cancelled":
+//         return { text: "Cancelled", color: "bg-red-500" };
+//       case "ready":
+//       default:
+//         return { text: "Ready", color: "bg-orange-500" };
+//     }
+//   },
+
+//   formatDate: (dateString) => {
+//     const options = { day: "numeric", month: "short", year: "numeric" };
+//     return new Date(dateString).toLocaleDateString("en-US", options);
+//   },
+
+//   generateOrderId: () => {
+//     const timeOrder = new Date().toISOString();
+//     const orderId = Math.floor(Math.random() * 1000)
+//       .toString()
+//       .padStart(3, "0");
+//     return `ORD-${timeOrder}${orderId}`;
+//   },
+// })); 
