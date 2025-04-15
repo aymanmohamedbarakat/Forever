@@ -24,6 +24,8 @@ export default function App() {
 
         <Route path="/" element={<UserLayout />}>
           <Route index element={<Home />} />
+          <Route path="about" element={<About />} />
+          <Route path="contact" element={<Contact />} />
         </Route>
         {/* UserRoute */}
         <Route
@@ -40,8 +42,6 @@ export default function App() {
           <Route path="/place-order" element={<PlaceOrders />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="about" element={<About />} />
-          <Route path="contact" element={<Contact />} />
           <Route path="/wishlist" element={<Wishlist />} />
           <Route
             path="*"
