@@ -165,7 +165,7 @@ export default function Login() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className={`bg-black text-white font-light px-8 py-2 ${
+              className={`bg-black text-white font-light px-8 py-2 mt-4 ${
                 currentState === "Login" ? "ml-auto" : ""
               }`}
             >

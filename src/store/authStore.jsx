@@ -13,7 +13,7 @@ const initialUsers = [
   },
   {
     id: "admin1",
-    name: "User Admin",
+    name: "Logentery Admin",
     email: "admin@example.com",
     phone: "987654321",
     password: "admin123",
