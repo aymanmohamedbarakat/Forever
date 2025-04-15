@@ -50,13 +50,13 @@ export default function App() {
             }
           />
           {/* AdminRoute */}
-          <Route path="/admin" element={<h1>Admin</h1>}></Route>
+          {/* <Route path="/admin" element={<h1>Admin</h1>}></Route> */}
         </Route>
 
         {/* RegisterRoute */}
         <Route path="/register" element={<Login />} />
         {/* AdminRoute */}
-        {/* <Route path="/admin" element={<h1>Admin</h1>}></Route> */}
+        <Route path="/admin" element={<h1>Admin</h1>}></Route>
       </Routes>
     </div>
   );
