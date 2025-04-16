@@ -11,6 +11,7 @@ import {
 } from "../../../store";
 import SideBar from "../SideBar/SideBar";
 import { FaRegHeart } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 export default function NavBar() {
   const { getLinks } = useLinks();
@@ -40,17 +41,17 @@ export default function NavBar() {
     }
   };
 
-  // const navigateToWishlist = () => {
-  //   if (isAuthenticated) {
-  //     navigate("/wishlist");
-  //   } else {
-  //     navigate("/register");
-  //     toast.info("Please login to view your wishlist", {
-  //       position: "top-right",
-  //       autoClose: 1200,
-  //     });
-  //   }
-  // };
+  const navigateToWishlist = () => {
+    if (isAuthenticated) {
+      navigate("/wishlist");
+    } else {
+      navigate("/register");
+      toast.info("Please login to view your wishlist", {
+        position: "top-right",
+        autoClose: 1200,
+      });
+    }
+  };
 
   return (
     <div className="flex items-center justify-between py-5 font-medium">
@@ -135,15 +136,19 @@ export default function NavBar() {
         </div>
 
         {/* Wishlist icon - visible when authenticated */}
-        {isAuthenticated && (
-          <Link to="/wishlist" className="relative">
+        {isAuthenticated ? (
+          <div onClick={navigateToWishlist} className="relative cursor-pointer">
             <FaRegHeart />
             {currentUser?.wishlist?.length > 0 && (
               <p className="absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[8px]">
                 {currentUser.wishlist.length}
               </p>
             )}
-          </Link>
+          </div>
+        ) : (
+          <div onClick={navigateToWishlist} className="relative cursor-pointer">
+            <FaRegHeart />
+          </div>
         )}
 
         {/* Cart icon - visible when authenticated */}

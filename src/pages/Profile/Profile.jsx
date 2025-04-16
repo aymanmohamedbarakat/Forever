@@ -4,7 +4,6 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useAuthStore } from "../../store";
 
-// Schema for data validation (better separated into an independent file for easier maintenance)
 const profileValidationSchema = Yup.object().shape({
   name: Yup.string()
     .required("Name is required")
@@ -25,7 +24,6 @@ export default function ProfilePage() {
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
       await updateProfile(values);
-      // Removed toast notification as it's now handled in the store function
     } catch (error) {
       toast.error(error.message || "Error during update", {
         position: "top-right",
@@ -50,7 +48,7 @@ export default function ProfilePage() {
         }}
         validationSchema={profileValidationSchema}
         onSubmit={handleSubmit}
-        enableReinitialize // Important when updating initial values
+        enableReinitialize 
       >
         {({ isSubmitting, isValid, dirty }) => (
           <Form className="space-y-4">
@@ -99,7 +97,6 @@ export default function ProfilePage() {
   );
 }
 
-// Helper component for reusing form fields
 function FormField({ name, label, type, placeholder }) {
   return (
     <div>

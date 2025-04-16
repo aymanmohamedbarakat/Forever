@@ -29,13 +29,10 @@ export default function PlaceOrders() {
   });
 
   const onSubmitOrder = async (values) => {
-    console.log("Submitting order with data:", values, "and method:", method);
-    // Update the form data in the store
+    // console.log("Submitting order with data:", values, "and method:", method);
     setFormData(values);
-    // Use the store's handlePlaceOrder function
     const success = await handlePlaceOrder();
     if (success) {
-      // Navigate to orders page after successful order
       navigate("/orders");
     }
   };

@@ -11,19 +11,14 @@ export default function SideBar() {
   const navigate = useNavigate();
   const { isAuthenticated, currentUser, logout, isAdmin } = useAuthStore();
 
-  // Close sidebar when pressing Escape key
   useEffect(() => {
     const handleEscape = (e) => {
       if (e.key === 'Escape') {
         closeSideHeader();
       }
     };
-    
     window.addEventListener('keydown', handleEscape);
-    
-    // Prevent scrolling when sidebar is open
     document.body.style.overflow = 'hidden';
-    
     return () => {
       window.removeEventListener('keydown', handleEscape);
       document.body.style.overflow = 'visible';
@@ -113,7 +108,6 @@ export default function SideBar() {
           </div>
         )}
         
-        {/* Navigation links - with flex-grow to take available space */}
         <div className="flex-grow overflow-y-auto">
           <div className="py-2">
             <h3 className="px-4 py-2 text-sm font-medium text-gray-500">Navigation</h3>

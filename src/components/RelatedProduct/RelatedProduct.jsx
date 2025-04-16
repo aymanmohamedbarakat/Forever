@@ -14,7 +14,7 @@ export default function RelatedProduct({ category, subCategory }) {
       let productCopy = products.slice();
       productCopy = productCopy.filter((item) => category === item.category)
       productCopy = productCopy.filter((item) => subCategory === item.subCategory)
-      console.log(productCopy.slice(0 ,5))
+      // console.log(productCopy.slice(0 ,5))
       setRelated(productCopy.slice(0 ,5));
     }
   }, [products , category ,subCategory]);
@@ -50,6 +50,9 @@ export default function RelatedProduct({ category, subCategory }) {
                 image={product.image}
                 name={product.name}
                 price={product.price}
+                bestseller={product.best_seller}
+                category={product.category}
+                subCategory={product.subCategory}
               />
             </SwiperSlide>
           ))}

@@ -75,7 +75,7 @@ export const useAuthStore = create((set, get) => ({
       name,
       phone,
       password,
-      role: "user", // Default role
+      role: "user", 
       orders: [],
       wishlist: [],
     };
@@ -120,7 +120,6 @@ export const useAuthStore = create((set, get) => ({
     localStorage.setItem("users", JSON.stringify(updatedUsers));
     localStorage.setItem("currentUser", JSON.stringify(updatedUser));
 
-    // Updated toast message to English
     toast.success("Profile updated successfully!", {
       position: "top-right",
       autoClose: 1200,

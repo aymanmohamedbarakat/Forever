@@ -21,7 +21,7 @@ export default function ProductDetails() {
     products.map((items) => {
       if (items._id == productId) {
         setProductData(items);
-        console.log(items);
+        // console.log(items);
         setImageProduct(items.image[0]);
       }
     });
@@ -117,7 +117,6 @@ export default function ProductDetails() {
                         : "border-gray-300 text-gray-700"
                     } rounded hover:bg-gray-50`}
                   >
-                    {/* Heart icon that changes based on wishlist status */}
                     {productInWishlist ? (
                       <FaHeart className="mr-2" />
                     ) : (

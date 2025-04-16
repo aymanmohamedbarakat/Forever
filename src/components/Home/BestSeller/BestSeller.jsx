@@ -12,7 +12,7 @@ export default function BestSeller() {
     const bestSeller = products.filter(
       (product) => (product.best_seller = true)
     );
-    console.log(bestSeller);
+    // console.log(bestSeller);
     setBestSeller(bestSeller.slice(10, 15));
   }, []);
   return (
@@ -49,6 +49,9 @@ export default function BestSeller() {
                 image={product.image}
                 name={product.name}
                 price={product.price}
+                bestseller={product.best_seller}
+                category={product.category}
+                subCategory={product.subCategory}
               />
             </SwiperSlide>
           ))}

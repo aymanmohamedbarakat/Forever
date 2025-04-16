@@ -11,7 +11,6 @@ import { toast } from "react-toastify";
 export const currency = "$";
 export const delivery_fee = 10;
 
-// Update navigateToOrders to check if user is authenticated
 export const navigateToOrders = (navigate) => {
   const { isAuthenticated } = useAuthStore.getState();
 
@@ -26,7 +25,6 @@ export const navigateToOrders = (navigate) => {
   }
 };
 
-// Add navigateToWishlist function
 export const navigateToWishlist = (navigate) => {
   const { isAuthenticated } = useAuthStore.getState();
 

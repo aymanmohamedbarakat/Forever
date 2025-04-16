@@ -49,6 +49,9 @@ export default function LatestCollection() {
                 image={product.image}
                 name={product.name}
                 price={product.price}
+                bestseller={product.best_seller}
+                category={product.category}
+                subCategory={product.subCategory}
               />
             </SwiperSlide>
           ))}

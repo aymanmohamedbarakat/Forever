@@ -17,25 +17,24 @@ export const useOrderStore = create((set, get) => ({
 
         // Only admins see all orders
         // Regular users see their own orders
-        // Guest users see orders with matching sessionId or no associated user
         let filteredOrders;
 
         if (currentUser && currentUser.role === "admin") {
-          // Admins see all orders
+
           filteredOrders = parsedOrders;
         } else if (currentUser) {
-          // Logged in users see their orders only
+
           filteredOrders = parsedOrders.filter(
             (order) => order.userId === currentUser.id
           );
         } else {
-          // Guest users see guest orders
+
           filteredOrders = parsedOrders.filter(
-            (order) => !order.userId // Show orders with no userId
+            (order) => !order.userId 
           );
         }
 
-        // Process the filtered orders...
+
         const updatedOrders = filteredOrders.map((order) => {
           if (!order.id) {
             return { ...order, id: get().generateOrderId() };
@@ -48,7 +47,7 @@ export const useOrderStore = create((set, get) => ({
         set({ orders: [] });
       }
     } catch (error) {
-      console.error("Error loading orders:", error);
+      // console.error("Error loading orders:", error);
       toast.error("There was an error loading your orders.", {
         position: "top-right",
         autoClose: 1200,
@@ -59,7 +58,7 @@ export const useOrderStore = create((set, get) => ({
     }
   },
 
-  // Rest of your order store methods...
+
   getStatusInfo: (status) => {
     switch (status) {
       case "processing":

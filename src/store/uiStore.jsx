@@ -1,7 +1,6 @@
 import { create } from "zustand";
 import { useAuthStore } from "./authStore";
 
-// Modify useLinks to include admin dashboard for admin users
 export const useLinks = create(() => {
   const Links = [
     { name: "HOME", url: "/" },

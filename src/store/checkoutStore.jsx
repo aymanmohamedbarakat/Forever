@@ -83,7 +83,6 @@ export const useCheckOutStore = create((set, get) => ({
         },
       },
       items: cartItemsArray,
-      // total: get().getCartAmount(products),
       total: get().getCartAmount(),
       PaymentMethod: method,
       status: "processing",
@@ -110,7 +109,6 @@ export const useCheckOutStore = create((set, get) => ({
       customer: orderCustomer,
       userId: currentUser?.id || null, // هذا السطر مهم
       items: cartItemsArray,
-      // total: get().getCartAmount(products),
       total: get().getCartAmount(),
       PaymentMethod: method,
       status: "processing",
@@ -153,7 +151,7 @@ export const useCheckOutStore = create((set, get) => ({
       });
       return true;
     } catch (error) {
-      console.error("Error saving order:", error);
+      // console.error("Error saving order:", error);
       toast.error("There was an error placing your order. Please try again.", {
         position: "top-right",
         autoClose: 1200,
