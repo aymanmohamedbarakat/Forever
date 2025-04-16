@@ -91,7 +91,7 @@ export default function SideBar() {
                 <FaShoppingBag className="text-gray-600 text-xs" />
                 <span>Orders</span>
               </button>
-              {isAdmin && (
+              {isAdmin  && (  // ()
                 <button 
                   onClick={() => navigateTo("/admin")}
                   className="flex items-center justify-center space-x-1 py-2 bg-gray-100 rounded hover:bg-gray-200 transition-colors text-sm"
