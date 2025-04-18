@@ -83,7 +83,7 @@ export default function NavBar() {
           {isAuthenticated ? (
             <div className="cursor-pointer relative">
               <img src={assets.profile_icon} alt="" className="w-4" />
-              <div className="group-hover:block hidden absolute dropdown-menu right-0 pt-4 z-10 transition-all duration-300 ease-in-out">
+              <div className="group-hover:block hidden absolute dropdown-menu right-0 pt-4 z-20 transition-all duration-300 ease-in-out">
                 <div className="flex flex-col gap-2 w-48 py-3 px-5 bg-slate-100 text-gray-400 rounded shadow-md">
                   <p className="font-medium text-black mb-1">
                     Hello, {currentUser?.name}
